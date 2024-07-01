@@ -1,0 +1,54 @@
+{% extends 'admin_account/pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Add Product Image</h3>
+        </div>
+
+
+<div class="card-body">
+                <form method="POST" action="{% url 'save_image' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="category">Product</label>
+                        <select id="category" name="category" class="form-control">
+                            {% for product in products %}
+                                <option value="{{ product.id }}">{{ product.product_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                     <div class="card-body">
+            <form method="POST" action="{% url 'save_image' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+
+        <
+                <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" id="image" name="image" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Image</button>
+                <a href="{% url 'product_image' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Optional: Add custom scripts here -->
+    <script>
+        // Add your custom scripts here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example: Adding a dynamic feature for the form
+            const productSelect = document.getElementById('product');
+            productSelect.addEventListener('change', function() {
+                alert(`Selected product: ${this.options[this.selectedIndex].text}`);
+            });
+        });
+    </script>
+{% endblock %}
